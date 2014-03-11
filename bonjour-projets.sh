@@ -38,7 +38,12 @@ function originIsLaFouchette()
 
         yellify "Origin has been setted to \"$REMOTE\""
 
-        git remote set-url CURRENT_USER git@github.com/$PROJECT.git
+    fi
+
+    CURRENT_USER_REMOTE=`git remote -v | grep ":$CURRENT_USER/" -c`
+    if [ $CURRENT_USER_REMOTE -eq 0 ]; then
+        git remote add $CURRENT_USER git@github.com:$CURRENT_USER/$PROJECT.git
+        yellify "Adding remote $CURRENT_USER"
     fi
 }
 
