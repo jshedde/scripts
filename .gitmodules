@@ -1,0 +1,3 @@
+[submodule "git-hooks/pre-commit/ahsio"]
+	path = git-hooks/pre-commit/ahsio
+	url = https://gist.github.com/7768689.git
