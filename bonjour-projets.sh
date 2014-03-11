@@ -35,10 +35,23 @@ function originIsLaFouchette()
         REMOTE="git@github.com:lafourchette/$PROJECT.git"
         git remote set-url origin $REMOTE
         git remote set-url origin --push _NOPUSH_
-
         yellify "Origin has been setted to \"$REMOTE\""
-
     fi
+}
+
+function disablingPushOnOrigin()
+{
+    PROJECT=$1
+    ORIGIN_PUSH=`git remote -v | grep origin | grep push | grep "lafourchette" -c`
+    if [ $ORIGIN_PUSH -eq 1 ]; then
+        git remote set-url origin --push _NOPUSH_
+        yellify "Disabling push to origin."
+    fi
+}
+
+function addingRemoteForCurrentUser()
+{
+    PROJECT=$1
 
     CURRENT_USER_REMOTE=`git remote -v | grep ":$CURRENT_USER/" -c`
     if [ $CURRENT_USER_REMOTE -eq 0 ]; then
@@ -46,8 +59,6 @@ function originIsLaFouchette()
         yellify "Adding remote $CURRENT_USER"
     fi
 }
-
-
 
 WORKSPACE=/var/www
 PWD_BACK=$PWD
@@ -59,10 +70,10 @@ do
             cd $PROJECT_DIR
             echo ""
             echo $PROJECT_DIR
-            if [ $dir == "lafourchette-core" ]; then
             originIsLaFouchette $dir
+            disablingPushOnOrigin $dir
+            addingRemoteForCurrentUser $dir
             fetchAll
-            fi
 
         fi
     fi
