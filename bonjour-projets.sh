@@ -23,6 +23,7 @@ function yellify()
 
 function fetchAll()
 {
+    greenify "Fetching..."
     git fetch --all 2>/dev/null >/dev/null
 }
 
