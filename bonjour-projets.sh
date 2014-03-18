@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CURRENT_USER=jshedde
-
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 VERT="\\033[1;32m" 
 ROUGE="\\033[37;41m" 
 NORMAL="\\033[0;39m"
@@ -60,6 +60,14 @@ function addingRemoteForCurrentUser()
     fi
 }
 
+function settingHooks()
+{
+    PROJECT_DIR=$1
+    PRECOMMIT=$PROJECT_DIR/.git/hooks/pre-commit
+    rm -f $PRECOMMIT
+    ln -s $SCRIPT_DIR/git-hooks/pre-commit/ahsio/pre-commit $PRECOMMIT
+    chmod +x $PRECOMMIT
+}
 WORKSPACE=/var/www
 PWD_BACK=$PWD
 for dir in `ls $WORKSPACE`
@@ -73,6 +81,7 @@ do
             originIsLaFouchette $dir
             disablingPushOnOrigin $dir
             addingRemoteForCurrentUser $dir
+            settingHooks $PROJECT_DIR
             fetchAll
 
         fi
