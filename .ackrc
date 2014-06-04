@@ -1,0 +1,7 @@
+--ignore-dir=cache
+--type-set
+yml=.yml
+--type-set
+xliff=.xliff,.xlf
+--type-set
+twig=.twig
