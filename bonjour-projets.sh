@@ -26,6 +26,11 @@ function fetchAll()
     greenify "Fetching..."
     git fetch --all --prune 2>/dev/null >/dev/null
 }
+function currentBranch()
+{
+    CURR_BR=`git branch  2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+    echo -e "Branche courante : $CURR_BR"
+}
 
 function originIsLaFouchette()
 {
@@ -83,6 +88,7 @@ do
             addingRemoteForCurrentUser $dir
             settingHooks $PROJECT_DIR
             fetchAll
+            currentBranch
 
         fi
     fi
