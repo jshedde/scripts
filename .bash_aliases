@@ -8,6 +8,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gpu='git pushup'
 alias go='git checkout '
+alias fall='git fetch --all --prune'
 
 alias vm-start='TT=$PWD; cd /home/jeanseb/PhpstormProjects/lafourchette-vm/; ./lfvagrant resume; cd $TT'
 alias vm-stop='TT=$PWD; cd /home/jeanseb/PhpstormProjects/lafourchette-vm/; ./lfvagrant suspend; cd $TT'
@@ -17,8 +18,9 @@ alias vm-ssh='TT=$PWD; cd /home/jeanseb/PhpstormProjects/lafourchette-vm/; ./lfv
 #  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 #}
 #PS1="\$(parse_git_branch)[\u@\h \W]\$ "
-alias composer='~/bin/composer.phar'
+alias composer='hhvm ~/bin/composer.phar'
 alias pu='clear; phpunit --debug '
+alias pucov='clear; phpunit --debug --coverage-html web/coverage '
 alias ft='clear; rm -rf app/cache/*; phing configure -DdbPrefix="test_b2c"; phpunit --debug -c ft.phpunit.xml; phing configure'
 alias cs='phpcs --standard=PSR2 '
 alias bonjour-projets='/home/vagrant/scripts/bonjour-projets.sh'
@@ -39,3 +41,6 @@ alias sf='app/console'
 
 # do
 alias domi='app/console do:mi:mi'
+
+#
+alias ass='app/console assets:install --symlink; app/console assetic:dump'
