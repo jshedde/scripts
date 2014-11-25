@@ -54,6 +54,17 @@ function disablingPushOnOrigin()
     fi
 }
 
+function addingUpstream()
+{
+    PROJECT=$1
+
+    CURRENT_USER_REMOTE=`git remote -v | grep "upstream" -c`
+    if [ $CURRENT_USER_REMOTE -eq 0 ]; then
+        git remote add upstream git@github.com:lafourchette/$PROJECT.git
+        yellify "Adding remote upstream"
+    fi
+}
+
 function addingRemoteForCurrentUser()
 {
     PROJECT=$1
@@ -85,6 +96,7 @@ do
             echo $PROJECT_DIR
             originIsLaFouchette $dir
             disablingPushOnOrigin $dir
+            addingUpstream $dir
             addingRemoteForCurrentUser $dir
             settingHooks $PROJECT_DIR
             fetchAll
