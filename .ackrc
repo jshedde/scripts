@@ -1,4 +1,5 @@
 --ignore-dir=cache
+--ignore-dir=web
 --type-set
 yml=.yml
 --type-set
