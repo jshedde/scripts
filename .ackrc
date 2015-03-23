@@ -6,3 +6,5 @@ yml=.yml
 xliff=.xliff,.xlf
 --type-set
 twig=.twig
+--type-set
+behat=.feature
