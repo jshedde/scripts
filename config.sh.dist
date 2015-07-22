@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Your github account name
+CURRENT_USER=jshedde
+
+# The folder containing your git projects
+WORKSPACE=/var/www
+
+## Add precommit hook
+#ENABLE_PRECOMMIT_HOOK=1
+
+## Enable origin lafourchette
+#ENABLE_ORIGIN_LAFOURCHETTE=1
+
+## Enable upstream
+#ENABLE_UPSTREAM=1
+
+## Add remote for current user
+#ADD_REMOTE_FOR_CURRENT_USER=1
+
+## Disable push on origin
+#DISABLE_PUSH_ON_ORIGIN=1

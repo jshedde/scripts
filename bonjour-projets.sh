@@ -1,9 +1,33 @@
 #!/bin/bash
-
-CURRENT_USER=jshedde
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-VERT="\\033[1;32m" 
-ROUGE="\\033[37;41m" 
+
+CONFIG_PATH="${SCRIPT_DIR}/config.sh"
+if [ ! -f "${CONFIG_PATH}" ]; then
+    echo "ERROR : You should create a ${CONFIG_PATH} file (see config.sh.dist)."
+    exit 1
+fi
+
+# default values
+ENABLE_PRECOMMIT_HOOK=0
+ENABLE_ORIGIN_LAFOURCHETTE=0
+ENABLE_UPSTREAM=0
+ADD_REMOTE_FOR_CURRENT_USER=0
+DISABLE_PUSH_ON_ORIGIN=0
+
+source ${CONFIG_PATH}
+
+if [ -z "$CURRENT_USER" ]; then
+    echo "ERROR : You should set the CURRENT_USER variable."
+    exit 1
+fi
+
+if [ -z "$WORKSPACE" ]; then
+    echo "ERROR : You should set the WORKSPACE variable."
+    exit 1
+fi
+
+VERT="\\033[1;32m"
+ROUGE="\\033[37;41m"
 NORMAL="\\033[0;39m"
 JAUNE="\\033[30;43m"
 function greenify()
@@ -84,7 +108,6 @@ function settingHooks()
     ln -s $SCRIPT_DIR/git-hooks/pre-commit/ahsio/pre-commit $PRECOMMIT
     chmod +x $PRECOMMIT
 }
-WORKSPACE=/var/www
 PWD_BACK=$PWD
 for dir in `ls $WORKSPACE`
 do
@@ -94,11 +117,22 @@ do
             cd $PROJECT_DIR
             echo ""
             echo $PROJECT_DIR
-            originIsLaFouchette $dir
-            disablingPushOnOrigin $dir
-            addingUpstream $dir
-            addingRemoteForCurrentUser $dir
-            settingHooks $PROJECT_DIR
+
+            if [ $ENABLE_ORIGIN_LAFOURCHETTE -eq 1 ]; then
+                originIsLaFouchette $dir
+            fi
+            if [ $DISABLE_PUSH_ON_ORIGIN -eq 1 ]; then
+                disablingPushOnOrigin $dir
+            fi
+            if [ $ENABLE_UPSTREAM -eq 1 ]; then
+                addingUpstream $dir
+            fi
+            if [ $ADD_REMOTE_FOR_CURRENT_USER -eq 1 ]; then
+                addingRemoteForCurrentUser $dir
+            fi
+            if [ $ENABLE_PRECOMMIT_HOOK -eq 1 ]; then
+                settingHooks $PROJECT_DIR
+            fi
             fetchAll
             currentBranch
 
