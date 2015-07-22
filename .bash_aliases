@@ -45,3 +45,5 @@ alias domi='app/console do:mi:mi'
 
 #
 alias ass='app/console assets:install --symlink; app/console assetic:dump'
+
+export PATH=/home/vagrant/.composer/vendor/bin/:$PATH
