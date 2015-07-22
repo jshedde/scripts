@@ -18,7 +18,8 @@ alias vm-ssh='TT=$PWD; cd /home/jeanseb/PhpstormProjects/lafourchette-vm/; ./lfv
 #  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 #}
 #PS1="\$(parse_git_branch)[\u@\h \W]\$ "
-alias composer='hhvm ~/bin/composer.phar'
+#alias composer='hhvm ~/bin/composer.phar'
+alias composer='hhvm -v ResourceLimit.SocketDefaultTimeout=60 -v Http.SlowQueryThreshold=60000 -v Eval.Jit=false ~/bin/composer.phar'
 alias pu='clear; phpunit --debug '
 alias pucov='clear; phpunit --debug --coverage-html web/coverage '
 alias ft='clear; rm -rf app/cache/*; phing configure -DdbPrefix="test_b2c"; phpunit --debug -c ft.phpunit.xml; phing configure'
