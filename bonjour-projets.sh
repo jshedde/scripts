@@ -108,6 +108,13 @@ function settingHooks()
     ln -s $SCRIPT_DIR/git-hooks/pre-commit/ahsio/pre-commit $PRECOMMIT
     chmod +x $PRECOMMIT
 }
+
+if [ $ENABLE_PRECOMMIT_HOOK -eq 1 ]; then
+    PRECOMMIT=/usr/share/git-core/templates/hooks/pre-commit
+    sudo rm $PRECOMMIT
+    sudo ln -s $SCRIPT_DIR/git-hooks/pre-commit/ahsio/pre-commit $PRECOMMIT
+fi
+
 PWD_BACK=$PWD
 for dir in `ls $WORKSPACE`
 do
