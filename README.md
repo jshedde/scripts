@@ -10,7 +10,13 @@ git clone --recursive https://github.com/jshedde/scripts
 cd scripts
 cp config.sh.dist config.sh
 ```
-Editer config.sh
+Editer config.sh (cf Features)
+
+Puis lancer la commande : (attention cette commande modifie vos repo git)
+
+```
+bonjour-projects.sh
+```
 
 # Features
 
